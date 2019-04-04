@@ -6,12 +6,19 @@ import java.io.*;
 import java.util.*;
 
 public class Hostel{
-	   public static void writedata()throws IOException {
+	   private static BufferedReader br;
+	private static BufferedReader br2;
+	private static BufferedReader br3;
+	private static Scanner sc;
+	private static Scanner sc2;
+
+
+	public static void writedata()throws IOException {
 		   BufferedWriter out = null;
            try{
             out = new BufferedWriter(new FileWriter("allotedhostel.txt"));
             try{
-	       		BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
+	       		br = new BufferedReader(new FileReader("hostel.txt"));
 	                   
 	            String line = null;
 	           while ((line = br.readLine()) != null) {
@@ -32,15 +39,17 @@ public class Hostel{
 	   }
 	   public static boolean readData(String name) {
 		   try{
-	             BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
+	             br2 = new BufferedReader(new FileReader("hostel.txt"));
 	               String line = null;
 	            
 	               //write your code here !!!
-	               while ((line = br.readLine()) != null) {
+	               while ((line = br2.readLine()) != null) {
 		               String[] splited = line.split("\\s+");
 		               String checkName = splited[0];
 		               //write your code here !!!
 //		               compare check name with name and return true if present and false if not
+		               if(checkName.equals(name)) 
+		                return false;
 	               }
 	               
 	               
@@ -51,14 +60,19 @@ public class Hostel{
 	   }
        public static void allotHostel(){
     	   //write your code here!!!
-    	   
+    	   try{
+    		   writedata();
+    	   }
+    	   catch(IOException e) {
+    		   System.out.println(e);
+    	   }
        }
 
        public static boolean verifyStudent(int regNo){
          try{
-             BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
+             br3 = new BufferedReader(new FileReader("hostel.txt"));
                String line = null;
-            while ((line = br.readLine()) != null) {
+            while ((line = br3.readLine()) != null) {
                 String[] splited = line.split("\\s+");
 
                 String reg = Integer.toString(regNo);
@@ -76,16 +90,17 @@ public class Hostel{
     	   boolean chk = true;
     	   
     	   //write your code here
-    	   
+    	   if(readData(name)) chk=false;
+    	  
     	   return chk;
         }
         
 
 		static String typeName(){
-            Scanner sc = new Scanner(System.in);
+            sc2 = new Scanner(System.in);
             String name;
             System.out.println("Enter the student name:(Type exit to exit) ");
-            name = sc.nextLine();
+            name = sc2.nextLine();
             return name;
         }
 
@@ -95,7 +110,7 @@ public class Hostel{
 
 
         BufferedWriter out = null;
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Hostel Management \n Enter the record of students! \n Type exit to end!");
         String name  = typeName();
         
